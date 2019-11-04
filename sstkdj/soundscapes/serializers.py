@@ -23,4 +23,4 @@ class RegionCircleSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegionCircle
         fields = ['id', 'label', 'center_latitude', 'center_longitude',
-                  'radius', 'active', 'attack', 'release', 'lives', ]
+                  'radius', 'active', 'attack', 'release', 'lives', 'soundfile', 'loops', 'finish_rule', 'state', 'assigned_slot', 'pause_offset']

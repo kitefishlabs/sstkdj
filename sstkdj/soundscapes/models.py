@@ -45,5 +45,11 @@ class RegionCircle(models.Model):
     release = models.IntegerField(default=1000)
     lives = models.IntegerField(default=99)
 
+    loops = models.IntegerField(null=True)
+    finish_rule = models.BooleanField(default=False)
+    state = models.CharField(max_length=10, null=True)
+    assigned_slot = models.IntegerField(null=True)
+    pause_offset = models.FloatField(default=0.0)
+
     def __str__(self):
         return (self.label + ' - (' + str(self.center_latitude) + ', ' + str(self.center_longitude) + ', ' + str(self.radius) + ') - ' + str(self.updated))

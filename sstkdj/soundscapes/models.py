@@ -30,10 +30,12 @@ class RegionMap(models.Model):
 class RegionCircle(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(
+        EmailUser, related_name='owned_regions', on_delete=models.SET_NULL, null=True)
     region_map = models.ForeignKey(
         RegionMap, related_name='regions', on_delete=models.SET_NULL, null=True)
-    soundfile = models.ForeignKey(
-        Soundfile, related_name='regions_assigned_to', on_delete=models.SET_NULL, null=True)
+    soundfile = models.CharField(
+        max_length=200, blank=True, default='')
     label = models.CharField(max_length=100, blank=True, default='')
     center_latitude = models.FloatField(
         'latitude', default=0.0)

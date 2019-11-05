@@ -27,7 +27,7 @@ class RegionMapViewSet(viewsets.ModelViewSet):
 
 class RegionCircleViewSet(viewsets.ModelViewSet):
     permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly]
+        permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset = RegionCircle.objects.all()
     serializer_class = RegionCircleSerializer
 

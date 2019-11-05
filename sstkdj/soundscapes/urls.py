@@ -46,7 +46,7 @@ urlpatterns = [
     path(r'maps/<int:pk>', regionmap_detail, name='map-detail'),
     path(r'regions/', regioncircle_list, name='region-list'),
     path(r'regions/<int:pk>', regioncircle_detail,
-         name='region-detail'),
+         name='regioncircle-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

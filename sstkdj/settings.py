@@ -122,10 +122,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+if DEBUG:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+else:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', '')
+    AWS_S3_ENDPOINT_URL = 'https://${AWS_S3_REGION_NAME}.digitaloceanspaces.com'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+
+if DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
+else:
+    STATIC_ROOT = 'static/'
+    MEDIA_ROOT = 'media/'
+    STATIC_URL = f"https://{AWS_S3_ENDPOINT_URL}/static/"
+    MEDIA_URL = f"https://{AWS_S3_ENDPOINT_URL}/media/"
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

@@ -7,8 +7,8 @@ class Soundfile(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
         EmailUser, related_name='soundfiles', on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=100, default='default')
-    filepath = models.CharField(max_length=200, default='default.wav')
+    name = models.CharField(max_length=100, default='NO-NAME')
+    file = models.FileField(blank=False, null=True)
     length = models.IntegerField(default=48000)
     sample_rate = models.IntegerField(default=48000)
 

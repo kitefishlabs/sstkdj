@@ -7,7 +7,7 @@ class SoundfileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Soundfile
-        fields = ['id', 'url', 'owner', 'name', 'filepath', 'length',
+        fields = ['id', 'url', 'owner', 'name', 'file', 'length',
                   'sample_rate', ]
 
 

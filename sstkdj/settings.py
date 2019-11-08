@@ -20,16 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY', 'j$oq1310=$08+pp*5)2cpvf!&8_zccblie3i9aprb11&&^w3x$')
+SECRET_KEY = 'j$oq1310=$08+pp*5)2cpvf!&8_zccblie3i9aprb11&&^w3x$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != False
+DEBUG = True
 
-if DEBUG:
-    ALLOWED_HOSTS = []
-else:
-    ALLOWED_HOSTS = ['68.183.18.54', 'localhost']
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -79,25 +75,12 @@ WSGI_APPLICATION = 'sstkdj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get('DJANGO_DB_NAME', 'sstkdjtestdb'),
-            'USER': os.environ.get('DJANGO_DB_USER', 'sstkdjtestuser'),
-            'PASSWORD': os.environ.get('DJANGO_DB_PASSWORD', ''),
-            'HOST': os.environ.get('DJANGO_DB_HOST', 'localhost'),
-            'PORT': os.environ.get('DJANGO_DB_PORT', ''),
-        }
-    }
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -136,26 +119,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-if DEBUG:
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-else:
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', '')
-    AWS_S3_ENDPOINT_URL = 'https://${AWS_S3_REGION_NAME}.digitaloceanspaces.com'
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
-    STATIC_URL = '/static/'
-    MEDIA_URL = '/media/'
-else:
-    STATIC_ROOT = 'static/'
-    MEDIA_ROOT = 'media/'
-    STATIC_URL = f"https://{AWS_S3_ENDPOINT_URL}/static/"
-    MEDIA_URL = f"https://{AWS_S3_ENDPOINT_URL}/media/"
+# in case we need to test something locally with DO involving uploads/static
+AWS_S3_REGION_NAME = 'nyc3'
+AWS_S3_ENDPOINT_URL = 'https://${AWS_S3_REGION_NAME}.digitaloceanspaces.com'
+AWS_ACCESS_KEY_ID = '',
+AWS_SECRET_ACCESS_KEY = ''
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 
 REST_FRAMEWORK = {

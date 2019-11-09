@@ -2,7 +2,7 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import SoundfileViewSet, RegionMapViewSet, RegionCircleViewSet, api_root
+from .views import SoundfileViewSet, RegionMapViewSet, RegionCircleViewSet
 from rest_framework import renderers
 
 

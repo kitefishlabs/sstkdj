@@ -120,7 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-STATICFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# STATICFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # in case we need to test something locally with DO involving uploads/static
 AWS_S3_REGION_NAME = 'nyc3'

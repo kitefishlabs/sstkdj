@@ -1,15 +1,7 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.reverse import reverse
-
-from rest_framework import mixins, viewsets, permissions, status
+from rest_framework import viewsets, permissions
 from .models import Soundfile, RegionMap, RegionCircle
 from .serializers import SoundfileSerializer, RegionMapSerializer, RegionCircleSerializer
 from .permissions import IsOwnerOrReadOnly
-
-from rest_framework.exceptions import ParseError
-from rest_framework.parsers import FileUploadParser
-from rest_framework.views import APIView
 
 
 class SoundfileViewSet(viewsets.ModelViewSet):
@@ -34,12 +26,3 @@ class RegionCircleViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset = RegionCircle.objects.all()
     serializer_class = RegionCircleSerializer
-
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'soundfiles': reverse('soundfile-list', request=request, format=format),
-        'maps': reverse('map-list', request=request, format=format),
-        'regions': reverse('region-list', request=request, format=format)
-    })

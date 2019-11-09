@@ -9,8 +9,10 @@ class Soundfile(models.Model):
         EmailUser, related_name='soundfiles', on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100, default='NO-NAME')
     file = models.FileField(blank=False, null=True)
-    length = models.IntegerField(default=48000)
+    channels = models.IntegerField(default=2)
+    length = models.IntegerField(default=0)
     sample_rate = models.IntegerField(default=48000)
+    checksum = models.CharField(default='', max_length=32, null=False)
 
     def __str__(self):
         return (self.name + ' - ' + str(self.length / self.sample_rate) + ' - ' + str(self.updated))
@@ -31,7 +33,7 @@ class RegionCircle(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
-        EmailUser, related_name='owned_regions', on_delete=models.SET_NULL, null=True)
+        EmailUser, related_name='regions', on_delete=models.SET_NULL, null=True)
     region_map = models.ForeignKey(
         RegionMap, related_name='regions', on_delete=models.SET_NULL, null=True)
     soundfile = models.CharField(

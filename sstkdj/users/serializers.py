@@ -6,16 +6,11 @@ from sstkdj.soundscapes.models import Soundfile, RegionMap, RegionCircle
 
 
 class EmailUserSerializer(serializers.HyperlinkedModelSerializer):
-    soundfiles = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Soundfile.objects.all())
-    maps = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=RegionMap.objects.all())
-    regions = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=RegionCircle.objects.all())
 
     class Meta:
         model = EmailUser
-        fields = ['url', 'username', 'email', 'groups', 'maps', ]
+        fields = ['url', 'username', 'email', 'groups',
+                  'maps', 'soundfiles', 'regions']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):

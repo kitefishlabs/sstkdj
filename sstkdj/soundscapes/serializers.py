@@ -35,7 +35,6 @@ class SoundfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Soundfile
         owner = serializers.StringRelatedField(source='owner.email')
-    # print("owner: " + owner)
         fields = ['id', 'url', 'owner', 'name', 'file',
                   'length', 'sample_rate', 'channels', 'checksum', ]
 
@@ -53,5 +52,5 @@ class RegionCircleSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = RegionCircle
-        fields = ['id', 'url', 'label', 'center_latitude', 'center_longitude',
-                  'radius', 'active', 'attack', 'release', 'lives', 'soundfile', 'loops', 'finish_rule', 'state', 'assigned_slot', 'pause_offset', 'owner', ]
+        fields = ['id', 'url', 'owner', 'label', 'center_latitude', 'center_longitude',
+                  'radius', 'active', 'attack', 'release', 'lives', 'soundfile', 'loops', 'finish_rule', 'state', 'assigned_slot', 'pause_offset', 'region_map']
